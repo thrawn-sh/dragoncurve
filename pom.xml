@@ -371,7 +371,7 @@
 						</goals>
 						<configuration>
 							<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-							<licenseName>apache_v2</licenseName>
+							<licenseName>gpl_v3</licenseName>
 						</configuration>
 					</execution>
 				</executions>
