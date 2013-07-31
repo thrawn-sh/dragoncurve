@@ -25,32 +25,33 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import de.shadowhunt.fractal.dragoncurve.gui.MainApplicationFrame;
 
 public class Main {
-	
+
 	static {
 		try {
 			// set up native look and feel for SWING
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
+			//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (final Exception e) {
 			// ignore exception
 		}
 	}
-	
-	public static void main(String[] args) {
+
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
+			@Override
 			public void run() {
 				final JFrame frame = new MainApplicationFrame();
 				frame.pack();
 				frame.validate();
 				// prevent frame from collapsing
-				Dimension size = frame.getPreferredSize();
+				final Dimension size = frame.getPreferredSize();
 				frame.setMinimumSize(size);
 				frame.setVisible(true);
-			}});
-	}		
+			}
+		});
+	}
 }

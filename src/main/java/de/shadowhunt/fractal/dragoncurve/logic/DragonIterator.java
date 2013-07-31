@@ -26,10 +26,10 @@ import java.util.Iterator;
 public class DragonIterator implements Iterator<Direction> {
 
 	public static Iterator<Direction> getIteratorForDimension(final int dimension) {
-		long max = Double.valueOf(Math.pow(2.0, dimension)).longValue() - 1;
+		final long max = Double.valueOf(Math.pow(2.0, dimension)).longValue() - 1;
 		return new DragonIterator(max);
 	}
-	
+
 	private final long max;
 
 	private long n = 1;
@@ -37,7 +37,7 @@ public class DragonIterator implements Iterator<Direction> {
 	DragonIterator(final long max) {
 		this.max = max;
 	}
-	
+
 	@Override
 	public boolean hasNext() {
 		return n <= max;
@@ -55,6 +55,6 @@ public class DragonIterator implements Iterator<Direction> {
 
 	@Override
 	public void remove() {
-		throw new UnsupportedOperationException("can't delete from " + DragonIterator.class.getSimpleName());	
+		throw new UnsupportedOperationException("can't delete from " + DragonIterator.class.getSimpleName());
 	}
 }

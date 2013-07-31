@@ -34,12 +34,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 import de.shadowhunt.fractal.dragoncurve.gui.action.ExportMenu;
 import de.shadowhunt.fractal.dragoncurve.gui.action.GoAction;
 import de.shadowhunt.fractal.dragoncurve.gui.action.ShowAboutDialogAction;
 import de.shadowhunt.fractal.dragoncurve.gui.action.TerminateGuiAction;
-
 
 public class MainApplicationFrame extends JFrame {
 
@@ -57,8 +57,16 @@ public class MainApplicationFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	private JSlider createDimensionSlider() {
+		final JSlider dimensionSlider = new JSlider(SwingConstants.HORIZONTAL, 1, 20, 1);
+		dimensionSlider.setMajorTickSpacing(4);
+		dimensionSlider.setPaintTicks(true);
+		dimensionSlider.setPaintLabels(true);
+		return dimensionSlider;
+	}
+
 	private JPanel generateContentPane() {
-		JPanel pane = new JPanel();
+		final JPanel pane = new JPanel();
 		pane.setLayout(new BorderLayout());
 		//		pane.setBorder(ComponentFactory.EMPTY_BORDER);
 
@@ -68,8 +76,23 @@ public class MainApplicationFrame extends JFrame {
 		return pane;
 	}
 
+	private JComponent generateDimensionPane(final DragenCanvas canvas) {
+		final JPanel panel = new JPanel(new BorderLayout());
+
+		final JSlider slider = createDimensionSlider();
+		final JLabel label = new JLabel("Dimension: ");
+		label.setLabelFor(slider);
+		final JButton button = new JButton(new GoAction(slider, canvas));
+
+		panel.add(label, BorderLayout.WEST);
+		panel.add(slider, BorderLayout.CENTER);
+		panel.add(button, BorderLayout.EAST);
+
+		return panel;
+	}
+
 	private JMenu generateExportSubMenu() {
-		JMenu menu = new JMenu(new ExportMenu());
+		final JMenu menu = new JMenu(new ExportMenu());
 
 		return menu;
 	}
@@ -97,47 +120,24 @@ public class MainApplicationFrame extends JFrame {
 	}
 
 	private JComponent generateMainPane() {
-		JPanel panel = new JPanel(new BorderLayout());
+		final JPanel panel = new JPanel(new BorderLayout());
 
-		DragenCanvas canvas = new DragenCanvas();
+		final DragenCanvas canvas = new DragenCanvas();
 		panel.add(generateDimensionPane(canvas), BorderLayout.NORTH);
 		panel.add(canvas, BorderLayout.CENTER);
 
 		return panel;
 	}
 
-	private JComponent generateDimensionPane(final DragenCanvas canvas) {
-		JPanel panel = new JPanel(new BorderLayout());
-
-		JSlider slider = createDimensionSlider();
-		JLabel label = new JLabel("Dimension: ");
-		label.setLabelFor(slider);
-		JButton button = new JButton(new GoAction(slider, canvas));
-		
-		panel.add(label, BorderLayout.WEST);
-		panel.add(slider, BorderLayout.CENTER);
-		panel.add(button, BorderLayout.EAST);
-		
-		return panel;
-	}
-
-	private JSlider createDimensionSlider() {
-		JSlider dimensionSlider =  new JSlider(JSlider.HORIZONTAL, 1, 20, 1);
-		dimensionSlider.setMajorTickSpacing(4);
-		dimensionSlider.setPaintTicks(true);
-		dimensionSlider.setPaintLabels(true);
-		return dimensionSlider;
-	}
-
 	private JMenuBar generateMenuBar() {
-		JMenuBar menubar = new JMenuBar();
+		final JMenuBar menubar = new JMenuBar();
 		menubar.add(generateFileMenu());
 		menubar.add(generateHelpMenu());
 		return menubar;
 	}
 
 	private JToolBar generateToolBar() {
-		JToolBar toolbar = new JToolBar();
+		final JToolBar toolbar = new JToolBar();
 		toolbar.setFloatable(false);
 
 		return toolbar;

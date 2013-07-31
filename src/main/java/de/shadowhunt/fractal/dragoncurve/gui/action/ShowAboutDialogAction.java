@@ -45,20 +45,21 @@ public final class ShowAboutDialogAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "show about dialog");
 	}
 
+	@Override
 	public void actionPerformed(final ActionEvent e) {
-		JFrame root = (JFrame) SwingUtilities.getRoot(component);
-		JDialog dialog = new JDialog(root);
+		final JFrame root = (JFrame) SwingUtilities.getRoot(component);
+		final JDialog dialog = new JDialog(root);
 		dialog.setLocationRelativeTo(root);
 		dialog.setTitle("About");
 
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<html>");
 		sb.append("<center>");
 		sb.append("<p><b>&copy Alexander Dreweke</b></p>");
 		sb.append("<a href=\"mailto:alexander@dreweke.net\">alexander@dreweke.net</a>");
 
 		sb.append("<p>2013");
-		Calendar rightNow = Calendar.getInstance();
+		final Calendar rightNow = Calendar.getInstance();
 		if (rightNow.get(Calendar.YEAR) > 2013) {
 			sb.append(" - ");
 			sb.append(rightNow.get(Calendar.YEAR));
@@ -68,7 +69,7 @@ public final class ShowAboutDialogAction extends AbstractAction {
 		sb.append("</center>");
 		sb.append("</html>");
 
-		JEditorPane pane = new JEditorPane("text/html", sb.toString());
+		final JEditorPane pane = new JEditorPane("text/html", sb.toString());
 
 		dialog.setContentPane(pane);
 

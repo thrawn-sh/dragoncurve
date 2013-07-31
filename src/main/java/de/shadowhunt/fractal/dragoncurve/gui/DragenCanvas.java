@@ -27,11 +27,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 import de.shadowhunt.fractal.dragoncurve.logic.Direction;
 
-public class DragenCanvas extends JLabel {
+public class DragenCanvas extends JComponent {
 
 	private static final int MIN_SIZE = 400;
 
@@ -49,8 +48,6 @@ public class DragenCanvas extends JLabel {
 
 	private Image dbImage;
 
-	private Direction direction = null;
-
 	protected int factor = 1;
 
 	private int x = MIN_SIZE;
@@ -58,7 +55,7 @@ public class DragenCanvas extends JLabel {
 	private int y = MIN_SIZE;
 
 	public DragenCanvas() {
-		Dimension dimension = new Dimension(MIN_SIZE, MIN_SIZE);
+		final Dimension dimension = new Dimension(MIN_SIZE, MIN_SIZE);
 		setMinimumSize(dimension);
 		setPreferredSize(dimension);
 	}
@@ -67,44 +64,36 @@ public class DragenCanvas extends JLabel {
 		dbImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		dbGraphics = dbImage.getGraphics();
 
-		x = width/2;
-		y = height/2;
+		x = width / 2;
+		y = height / 2;
 
 		dbGraphics.setColor(getForeground());
-		dbGraphics.drawLine(x, y+SIZE, x, y);
+		dbGraphics.drawLine(x, y + SIZE, x, y);
 
 		factor = 1;
-		direction = null;
 		axis = X_AXIS;
 	}
 
-	@Override
-	public void paint(final Graphics g) {
-//		super.paint(g); // don't reset g
-		if (dbGraphics != null) {
-			paint0(dbGraphics);
-			g.drawImage(dbImage, 0, 0, this);
-		}
-	}
-
-	protected void paint0(final Graphics g) {
-		g.setColor(getForeground());
+	public void paintStep(final Direction direction) {
+		dbGraphics.setColor(getForeground());
 
 		final int d = (direction == Direction.RIGHT) ? factor : -factor;
 		final int delta = d * SIZE;
 
 		if (axis == X_AXIS) {
-			g.drawLine(x, y, x + delta, y);
+			dbGraphics.drawLine(x, y, x + delta, y);
 			x += delta;
 		} else {
-			g.drawLine(x, y, x, y + delta);
+			dbGraphics.drawLine(x, y, x, y + delta);
 			y += delta;
 		}
 		factor = axis * d;
 		axis = -axis; // toggle axis
 	}
 
-	public void setDirection(Direction direction) {
-		this.direction = direction;
+	@Override
+	public void paint(final Graphics g) {
+		super.paint(g); // don't reset g
+		g.drawImage(dbImage, 0, 0, this);
 	}
 }

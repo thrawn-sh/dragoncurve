@@ -43,11 +43,12 @@ public final class TerminateGuiAction extends AbstractAction {
 		this.frame = frame;
 
 		putValue(Action.SHORT_DESCRIPTION, "exit application");
-		KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK);
-		putValue(Action.ACCELERATOR_KEY,keyStroke);
+		final KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK);
+		putValue(Action.ACCELERATOR_KEY, keyStroke);
 
 	}
 
+	@Override
 	public void actionPerformed(final ActionEvent e) {
 		frame.setVisible(false);
 		frame.dispose();

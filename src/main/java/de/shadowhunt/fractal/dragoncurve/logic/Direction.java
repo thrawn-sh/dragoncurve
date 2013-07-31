@@ -22,21 +22,23 @@
 package de.shadowhunt.fractal.dragoncurve.logic;
 
 public enum Direction {
-	LEFT("L"), RIGHT("R");
-	
+	LEFT("L"),
+	RIGHT("R");
+
 	private final String value;
-	
-	private Direction(String value) {
+
+	private Direction(final String value) {
 		this.value = value;
 	}
-	
+
 	public Direction invert() {
 		if (RIGHT == this) {
 			return LEFT;
 		}
 		return RIGHT;
 	}
-	
+
+	@Override
 	public String toString() {
 		return value;
 	}

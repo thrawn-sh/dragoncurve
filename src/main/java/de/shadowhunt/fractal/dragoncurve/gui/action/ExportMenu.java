@@ -26,9 +26,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-public final class ExportMenu extends AbstractAction  {
+public final class ExportMenu extends AbstractAction {
 
-//	public static final String ICON = "de.shadowhunt.addressbook.swing.action.export";
+	//	public static final String ICON = "de.shadowhunt.addressbook.swing.action.export";
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,10 +36,11 @@ public final class ExportMenu extends AbstractAction  {
 		super("Export");
 
 		putValue(Action.SHORT_DESCRIPTION, "export addressbook to other formats");
-//		putValue(Action.SMALL_ICON, Icons.getIcon(ICON));
-//		putValue(Action.LARGE_ICON_KEY, Icons.getIcon(ICON));
+		//		putValue(Action.SMALL_ICON, Icons.getIcon(ICON));
+		//		putValue(Action.LARGE_ICON_KEY, Icons.getIcon(ICON));
 	}
 
+	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// nothing to do
 	}

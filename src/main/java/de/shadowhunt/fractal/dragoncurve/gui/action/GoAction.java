@@ -38,9 +38,9 @@ public class GoAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
 
-	private final JSlider slider;
-
 	private final DragenCanvas canvas;
+
+	private final JSlider slider;
 
 	public GoAction(final JSlider slider, final DragenCanvas canvas) {
 		super("Go");
@@ -50,26 +50,28 @@ public class GoAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Paint the Dragon");
 	}
 
+	@Override
 	public void actionPerformed(final ActionEvent e) {
 		final int dimension = slider.getValue();
 
 		SwingUtilities.invokeLater(new Runnable() {
 
+			@Override
 			public void run() {
-				JComponent source = (JComponent) e.getSource();
+				final JComponent source = (JComponent) e.getSource();
 				slider.setEnabled(false);
 				source.setEnabled(false);
 				final Iterator<Direction> it = DragonIterator.getIteratorForDimension(dimension);
 				canvas.init(400, 400);
 				canvas.revalidate();
 				while (it.hasNext()) {
-					canvas.setDirection(it.next());
+					canvas.paintStep(it.next());
 					canvas.repaint();
 				}
-				slider.setEnabled(true);
-				source.setEnabled(true);
-			}});
-
+				//				slider.setEnabled(true);
+				//				source.setEnabled(true);
+			}
+		});
 
 	}
 }
