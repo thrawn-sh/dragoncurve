@@ -28,6 +28,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+import de.shadowhunt.fractal.dragoncurve.logic.AreaSettings;
 import de.shadowhunt.fractal.dragoncurve.logic.Direction;
 
 public class DragenCanvas extends JComponent {
@@ -36,42 +37,54 @@ public class DragenCanvas extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final int SIZE = 5;
+	public static final int SIZE = 5;
 
 	public static final int X_AXIS = 1;
 
 	public static final int Y_AXIS = -1;
 
-	protected int axis = X_AXIS;
+	private int axis = X_AXIS;
 
 	private Graphics dbGraphics;
 
 	private Image dbImage;
 
-	protected int factor = 1;
+	private int factor = 1;
 
 	private int x = MIN_SIZE;
 
 	private int y = MIN_SIZE;
 
 	public DragenCanvas() {
-		final Dimension dimension = new Dimension(MIN_SIZE, MIN_SIZE);
-		setMinimumSize(dimension);
-		setPreferredSize(dimension);
+		setPreferredSize(new Dimension(MIN_SIZE, MIN_SIZE));
 	}
 
-	public final void init(final int width, final int height) {
+	public void init(final AreaSettings settings) {
+		final int border = 10 * SIZE;
+		final int width = settings.getWidth(SIZE) + (2 * border);
+		final int height = settings.getHight(SIZE) + (2 * border);
 		dbImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		dbGraphics = dbImage.getGraphics();
 
-		x = width / 2;
-		y = height / 2;
+		x = settings.getStartX(SIZE) + border;
+		y = settings.getStartY(SIZE) + border;
 
 		dbGraphics.setColor(getForeground());
 		dbGraphics.drawLine(x, y + SIZE, x, y);
 
 		factor = 1;
 		axis = X_AXIS;
+
+		setPreferredSize(new Dimension(width, height));
+		revalidate();
+	}
+
+	@Override
+	public void paint(final Graphics g) {
+		super.paint(g);
+		if (dbImage != null) {
+			g.drawImage(dbImage, 0, 0, this);
+		}
 	}
 
 	public void paintStep(final Direction direction) {
@@ -89,11 +102,5 @@ public class DragenCanvas extends JComponent {
 		}
 		factor = axis * d;
 		axis = -axis; // toggle axis
-	}
-
-	@Override
-	public void paint(final Graphics g) {
-		super.paint(g); // don't reset g
-		g.drawImage(dbImage, 0, 0, this);
 	}
 }

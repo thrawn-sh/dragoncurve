@@ -23,7 +23,9 @@ package de.shadowhunt.fractal.dragoncurve.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.ScrollPane;
 import java.awt.event.KeyEvent;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -58,10 +60,17 @@ public class MainApplicationFrame extends JFrame {
 	}
 
 	private JSlider createDimensionSlider() {
-		final JSlider dimensionSlider = new JSlider(SwingConstants.HORIZONTAL, 1, 20, 1);
-		dimensionSlider.setMajorTickSpacing(4);
+		final JSlider dimensionSlider = new JSlider(SwingConstants.HORIZONTAL, 1, 36, 1);
+		//		dimensionSlider.setMajorTickSpacing(4);
 		dimensionSlider.setPaintTicks(true);
 		dimensionSlider.setPaintLabels(true);
+
+		final Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
+		labels.put(1, new JLabel(Integer.toString(1)));
+		for (int i = 5; i <= 35; i += 5) {
+			labels.put(i, new JLabel(Integer.toString(i)));
+		}
+		dimensionSlider.setLabelTable(labels);
 		return dimensionSlider;
 	}
 
@@ -123,8 +132,10 @@ public class MainApplicationFrame extends JFrame {
 		final JPanel panel = new JPanel(new BorderLayout());
 
 		final DragenCanvas canvas = new DragenCanvas();
+		final ScrollPane pane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
+		pane.add(canvas);
 		panel.add(generateDimensionPane(canvas), BorderLayout.NORTH);
-		panel.add(canvas, BorderLayout.CENTER);
+		panel.add(pane, BorderLayout.CENTER);
 
 		return panel;
 	}
