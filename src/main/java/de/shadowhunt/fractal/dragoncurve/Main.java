@@ -25,6 +25,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import de.shadowhunt.fractal.dragoncurve.gui.MainApplicationFrame;
 
@@ -33,7 +34,7 @@ public class Main {
 	static {
 		try {
 			// set up native look and feel for SWING
-			//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (final Exception e) {
 			// ignore exception
 		}
