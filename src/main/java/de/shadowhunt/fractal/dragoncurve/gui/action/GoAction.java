@@ -30,7 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
-import de.shadowhunt.fractal.dragoncurve.gui.DragenCanvas;
+import de.shadowhunt.fractal.dragoncurve.gui.DragonPane;
 import de.shadowhunt.fractal.dragoncurve.logic.AreaSettings;
 import de.shadowhunt.fractal.dragoncurve.logic.Direction;
 import de.shadowhunt.fractal.dragoncurve.logic.DragonIterator;
@@ -41,7 +41,7 @@ public class GoAction extends AbstractAction {
 
 		private final JButton button;
 
-		private final DragenCanvas canvas;
+		private final DragonPane pane;
 
 		private final int dimension;
 
@@ -49,10 +49,10 @@ public class GoAction extends AbstractAction {
 
 		private final JSlider slider;
 
-		protected DragonWorker(final int dimension, final AreaSettings settings, final DragenCanvas canvas, final JSlider slider, final JButton button) {
+		protected DragonWorker(final int dimension, final AreaSettings settings, final DragonPane pane, final JSlider slider, final JButton button) {
 			this.dimension = dimension;
 			this.settings = settings;
-			this.canvas = canvas;
+			this.pane = pane;
 			this.slider = slider;
 			this.button = button;
 		}
@@ -62,11 +62,11 @@ public class GoAction extends AbstractAction {
 			slider.setEnabled(false);
 			button.setEnabled(false);
 			final Iterator<Direction> it = DragonIterator.getIteratorForDimension(dimension);
-			canvas.init(settings);
-			canvas.revalidate();
+			pane.init(settings);
+			pane.revalidate();
 			while (it.hasNext()) {
-				canvas.paintStep(it.next());
-				canvas.repaint();
+				pane.paintStep(it.next());
+				pane.repaint();
 			}
 			slider.setEnabled(true);
 			button.setEnabled(true);
@@ -78,6 +78,7 @@ public class GoAction extends AbstractAction {
 	private static final AreaSettings[] areaSettings = new AreaSettings[40];
 
 	static {
+		areaSettings[0] = new AreaSettings(0, 0, 0, 0);
 		areaSettings[1] = new AreaSettings(1, 0, 0, 0);
 		areaSettings[2] = new AreaSettings(2, 1, 0, 0);
 		areaSettings[3] = new AreaSettings(2, 3, 0, 0);
@@ -116,14 +117,14 @@ public class GoAction extends AbstractAction {
 		areaSettings[36] = new AreaSettings(262143, 393215, 87381, 87380);
 	}
 
-	private final DragenCanvas canvas;
+	private final DragonPane pane;
 
 	private final JSlider slider;
 
-	public GoAction(final JSlider slider, final DragenCanvas canvas) {
+	public GoAction(final JSlider slider, final DragonPane pane) {
 		super("Go");
 		this.slider = slider;
-		this.canvas = canvas;
+		this.pane = pane;
 
 		putValue(Action.SHORT_DESCRIPTION, "Paint the Dragon");
 	}
@@ -131,7 +132,7 @@ public class GoAction extends AbstractAction {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		final int dimension = slider.getValue();
-		SwingUtilities.invokeLater(new DragonWorker(dimension, getAreaSettings(dimension), canvas, slider, (JButton) e.getSource()));
+		SwingUtilities.invokeLater(new DragonWorker(dimension, getAreaSettings(dimension), pane, slider, (JButton) e.getSource()));
 	}
 
 	protected AreaSettings getAreaSettings(final int dimension) {

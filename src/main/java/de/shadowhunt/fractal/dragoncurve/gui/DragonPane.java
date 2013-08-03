@@ -31,7 +31,7 @@ import javax.swing.JComponent;
 import de.shadowhunt.fractal.dragoncurve.logic.AreaSettings;
 import de.shadowhunt.fractal.dragoncurve.logic.Direction;
 
-public class DragenCanvas extends JComponent {
+public class DragonPane extends JComponent {
 
 	private static final int MIN_SIZE = 400;
 
@@ -55,7 +55,7 @@ public class DragenCanvas extends JComponent {
 
 	private int y = MIN_SIZE;
 
-	public DragenCanvas() {
+	public DragonPane() {
 		setPreferredSize(new Dimension(MIN_SIZE, MIN_SIZE));
 	}
 

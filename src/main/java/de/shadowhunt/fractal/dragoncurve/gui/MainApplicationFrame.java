@@ -57,18 +57,17 @@ public class MainApplicationFrame extends JFrame {
 	}
 
 	private JSlider createDimensionSlider() {
-		final JSlider dimensionSlider = new JSlider(SwingConstants.HORIZONTAL, 1, 36, 1);
-		//		dimensionSlider.setMajorTickSpacing(4);
-		dimensionSlider.setPaintTicks(true);
-		dimensionSlider.setPaintLabels(true);
+		final JSlider slider = new JSlider(SwingConstants.HORIZONTAL, 1, 36, 1);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
 
 		final Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
 		labels.put(1, new JLabel(Integer.toString(1)));
 		for (int i = 5; i <= 35; i += 5) {
 			labels.put(i, new JLabel(Integer.toString(i)));
 		}
-		dimensionSlider.setLabelTable(labels);
-		return dimensionSlider;
+		slider.setLabelTable(labels);
+		return slider;
 	}
 
 	private JPanel generateContentPane() {
@@ -81,13 +80,13 @@ public class MainApplicationFrame extends JFrame {
 		return pane;
 	}
 
-	private JComponent generateDimensionPane(final DragenCanvas canvas) {
+	private JComponent generateDimensionPane(final DragonPane pane) {
 		final JPanel panel = new JPanel(new BorderLayout());
 
 		final JSlider slider = createDimensionSlider();
 		final JLabel label = new JLabel("Dimension: ");
 		label.setLabelFor(slider);
-		final JButton button = new JButton(new GoAction(slider, canvas));
+		final JButton button = new JButton(new GoAction(slider, pane));
 
 		panel.add(label, BorderLayout.WEST);
 		panel.add(slider, BorderLayout.CENTER);
@@ -127,11 +126,11 @@ public class MainApplicationFrame extends JFrame {
 	private JComponent generateMainPane() {
 		final JPanel panel = new JPanel(new BorderLayout());
 
-		final DragenCanvas canvas = new DragenCanvas();
-		panel.add(generateDimensionPane(canvas), BorderLayout.NORTH);
+		final DragonPane pane = new DragonPane();
+		panel.add(generateDimensionPane(pane), BorderLayout.NORTH);
 
-		final JScrollPane pane = new JScrollPane(canvas);
-		panel.add(pane, BorderLayout.CENTER);
+		final JScrollPane scrollPane = new JScrollPane(pane);
+		panel.add(scrollPane, BorderLayout.CENTER);
 
 		return panel;
 	}
