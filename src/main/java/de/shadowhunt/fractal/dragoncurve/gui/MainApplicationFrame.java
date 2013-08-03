@@ -22,8 +22,6 @@
 package de.shadowhunt.fractal.dragoncurve.gui;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.ScrollPane;
 import java.awt.event.KeyEvent;
 import java.util.Hashtable;
 
@@ -34,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -46,8 +45,6 @@ import de.shadowhunt.fractal.dragoncurve.gui.action.TerminateGuiAction;
 public class MainApplicationFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	protected final JPanel contentPanel = new JPanel(new CardLayout());
 
 	public MainApplicationFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +74,6 @@ public class MainApplicationFrame extends JFrame {
 	private JPanel generateContentPane() {
 		final JPanel pane = new JPanel();
 		pane.setLayout(new BorderLayout());
-		//		pane.setBorder(ComponentFactory.EMPTY_BORDER);
 
 		pane.add(generateToolBar(), BorderLayout.NORTH);
 		pane.add(generateMainPane(), BorderLayout.CENTER);
@@ -132,9 +128,9 @@ public class MainApplicationFrame extends JFrame {
 		final JPanel panel = new JPanel(new BorderLayout());
 
 		final DragenCanvas canvas = new DragenCanvas();
-		final ScrollPane pane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
-		pane.add(canvas);
 		panel.add(generateDimensionPane(canvas), BorderLayout.NORTH);
+
+		final JScrollPane pane = new JScrollPane(canvas);
 		panel.add(pane, BorderLayout.CENTER);
 
 		return panel;
