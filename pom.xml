@@ -300,6 +300,9 @@
 				<configuration>
 					<archive>
 						<index>true</index>
+						<manifest>
+							<mainClass>de.shadowhunt.fractal.dragoncurve.Main</mainClass>
+						</manifest>
 					</archive>
 					<skipIfEmpty>true</skipIfEmpty>
 				</configuration>
